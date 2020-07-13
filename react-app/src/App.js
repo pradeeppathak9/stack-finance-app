@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import Login from "./components/pages/Login";
 import SignUp from "./components/pages/Signup";
 import Home from "./components/pages/Home";
+import Portfolio from "./components/pages/Portfolio";
 import { AuthContext } from "./context/auth";
 
 
@@ -21,6 +22,7 @@ function App() {
     <Router>
         <Switch>
           <PrivateRoute exact path='/' component={Home} />
+          <PrivateRoute exact path='/portfolio' component={Portfolio} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={SignUp} />
         </Switch>

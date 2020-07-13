@@ -114,4 +114,14 @@ router.get('/user', auth, async (req, res) => {
   }
 });
 
+
+router.get('/add-stock-to-portfolio', auth, async (req, res) => {
+  try {
+    var id = req.query.id;
+    res.status(200);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
 export default router;

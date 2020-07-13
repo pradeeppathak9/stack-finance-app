@@ -2,6 +2,7 @@ import Router from 'express';
 // User Model
 import User from '../../models/User.js';
 
+
 const router = Router();
 
 /**
@@ -19,5 +20,7 @@ router.get('/', async (req, res) => {
     res.status(400).json({ msg: e.message });
   }
 });
+
+
 
 export default router;

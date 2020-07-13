@@ -12,7 +12,8 @@ import config from './config/index.js';
 import authRoutes from './routes/api/auth.js';
 import userRoutes from './routes/api/users.js';
 import stockRoutes from './routes/api/stock.js';
-import Stock from './models/Stock.js';
+import { Stock } from './models/Stock.js';
+
 
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
@@ -54,33 +55,41 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 function fetchLatestStockPricesForUser(socket, user_id) {
+  // filter stocks for user
     let date = new Date()
     Stock.find({}).exec(function(err, items){
-      socket.emit(user_id, { date, stocks: items })
+      socket.emit('message', { date, stocks: items, name: user_id });
     });
 }
 
 // Run when client connects
 io.on('connection', socket => {
-  console.log('connected')
-  socket.on('metainfo', ({id, name, email}) => {
-    console.log(socket.id, id, name, email);
+  console.log('connected', socket.id)
 
-    var interval = setInterval(function () {
-      fetchLatestStockPricesForUser(socket, id)
-    }, 3000);
-    
-    socket.on('disconnect', function () {
-      console.log('disconnected')
-      clearInterval(interval);
-    });
+  socket.on('all-stocks', ({ id, name, email }) => {
+    console.log(socket.rooms);
+    console.log('all-stocks joined');
+    socket.join('all-stocks');
+  });
+
+  socket.on('portfolio', ({ id, name, email }) => {
+    console.log('portfolio joined');
+    fetchLatestStockPricesForUser(socket, name);
+  });
+
+  socket.on('disconnect', function () {
+    console.log('disconnect', socket.id)
+    socket.leave('all-stocks');
   });
 });
 
 
 setInterval(function() {
   // console.log("Updating prices");
+  let date = new Date()
   Stock.find({}).exec(function(err, items){
+    io.to("all-stocks").emit( "message", { date, stocks: items });
+    //  updating stock prices
     for (var i = 0; i < items.length; i++) {
       var item = items[i]
       // console.log(item);

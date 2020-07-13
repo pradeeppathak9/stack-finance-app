@@ -9,4 +9,4 @@ const StockSchema = new Schema({
 
 const Stock = model('stock', StockSchema);
 
-export default Stock;
+export { StockSchema, Stock};

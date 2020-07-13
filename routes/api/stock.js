@@ -1,5 +1,5 @@
 import Router from 'express';
-import Stock from '../../models/Stock.js';
+import { Stock } from '../../models/Stock.js';
 
 const router = Router();
 

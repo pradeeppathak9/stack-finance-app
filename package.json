@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "client": "npm start --prefix react-app",
     "server": "nodemon server.js --exec babel-node --presets babel-preset-env",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix react-app && npm run build --prefix react-app"
   },
   "keywords": [],

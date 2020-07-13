@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    minWidth: 300,
   },
   visuallyHidden: {
     border: 0,
@@ -137,7 +137,7 @@ function EnhancedTable(props) {
   const [order, setOrder] = React.useState(sortOrder);
   const [orderBy, setOrderBy] = React.useState(sortKey);
 
-  console.log(rows.length)
+  // console.log(rows.length)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
