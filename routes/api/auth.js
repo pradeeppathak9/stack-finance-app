@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import Router from 'express';
 import bcrypt from 'bcryptjs';
-import config from '../../config';
+import config from '../../config/index.js';
 import jwt from 'jsonwebtoken';
-import auth from '../../middleware/auth';
+import auth from '../../middleware/auth.js';
 
 // User Model
-import User from '../../models/User';
+import User from '../../models/User.js';
 
 const { JWT_SECRET } = config;
 const router = Router();

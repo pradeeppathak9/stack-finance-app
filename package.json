@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js --exec babel-node --presets babel-preset-env"
+    "server": "nodemon server.js --exec babel-node --presets babel-preset-env",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix react-app && npm run build --prefix react-app"
   },
   "keywords": [],
   "author": "",

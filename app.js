@@ -7,13 +7,13 @@ import path from 'path';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import config from './config';
+import config from './config/index.js';
 
 // import routes
-import authRoutes from './routes/api/auth';
-import userRoutes from './routes/api/users';
-import stockRoutes from './routes/api/stock';
-import Stock from './models/Stock';
+import authRoutes from './routes/api/auth.js';
+import userRoutes from './routes/api/users.js';
+import stockRoutes from './routes/api/stock.js';
+import Stock from './models/Stock.js';
 
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
@@ -25,9 +25,6 @@ app.use(cors());
 app.use(morgan('dev'));
 // Bodyparser Middleware
 app.use(bodyParser.json());
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
-
 
 // DB Config
 const db = `${MONGO_URI}/${MONGO_DB_NAME}`;
@@ -48,11 +45,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/stock', stockRoutes);
 
 // ADD THIS LINE
-app.use(express.static(path.join(__dirname, "react-app", 'build')));
+app.use(express.static( "./react-app/build"));
 
 // If no API routes are hit, send the React app
 app.use(function(req, res) {
-  res.sendFile(path.resolve(__dirname, "react-app", "build", "index.html"));
+  res.sendFile("./react-app/build/index.html");
 });
 
 

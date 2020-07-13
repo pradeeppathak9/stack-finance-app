@@ -1,6 +1,5 @@
-import { Router } from 'express';
-import auth from '../../middleware/auth';
-import Stock from '../../models/Stock';
+import Router from 'express';
+import Stock from '../../models/Stock.js';
 
 const router = Router();
 
