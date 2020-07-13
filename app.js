@@ -6,7 +6,6 @@ import path from 'path';
 
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import morgan from 'morgan';
 import config from './config/index.js';
 
 // import routes
