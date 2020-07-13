@@ -21,8 +21,6 @@ const { MONGO_URI, MONGO_DB_NAME } = config;
 const app = express();
 // CORS Middleware
 app.use(cors());
-// Logger Middleware
-app.use(morgan('dev'));
 // Bodyparser Middleware
 app.use(bodyParser.json());
 
