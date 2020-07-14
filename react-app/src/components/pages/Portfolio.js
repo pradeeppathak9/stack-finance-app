@@ -75,7 +75,11 @@ function Home(props)  {
               sortOrder={'desc'}
               />
               :
-              <h3>Loading Portfolio...</h3>
+              <div className="auth-wrapper">
+              <div className="auth-inner">
+                  <h3>Loading Portfolio Prices ...</h3>
+              </div>
+            </div>
               }
             </div>
         </div>

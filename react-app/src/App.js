@@ -6,6 +6,8 @@ import Login from "./components/pages/Login";
 import SignUp from "./components/pages/Signup";
 import Home from "./components/pages/Home";
 import Portfolio from "./components/pages/Portfolio";
+import ManagePortfolio from "./components/pages/ManagePortfolio";
+
 import { AuthContext } from "./context/auth";
 
 
@@ -23,6 +25,7 @@ function App() {
         <Switch>
           <PrivateRoute exact path='/' component={Home} />
           <PrivateRoute exact path='/portfolio' component={Portfolio} />
+          <PrivateRoute exact path='/portfolio_edit' component={ManagePortfolio} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={SignUp} />
         </Switch>

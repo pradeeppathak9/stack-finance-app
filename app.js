@@ -13,8 +13,7 @@ import authRoutes from './routes/api/auth.js';
 import userRoutes from './routes/api/users.js';
 import stockRoutes from './routes/api/stock.js';
 import { Stock } from './models/Stock.js';
-
-
+import User from './models/User.js';
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
 
@@ -54,10 +53,16 @@ app.use(function(req, res) {
 const server = http.createServer(app);
 const io = socketio(server);
 
-function fetchLatestStockPricesForUser(socket, user_id) {
+async function fetchLatestStockPricesForUser(socket, user_id) {
   // filter stocks for user
     let date = new Date()
-    Stock.find({}).exec(function(err, items){
+    var user = await User.findById(user_id);
+    var ids = [];
+    for (var i = 0; i < user.portfolio.length; i++) {
+      ids.push(mongoose.Types.ObjectId(user.portfolio[i]))
+    }
+    Stock.find({'_id': { $in: ids}}, function(err, items){
+      console.log(items);
       socket.emit('message', { date, stocks: items, name: user_id });
     });
 }
@@ -74,7 +79,7 @@ io.on('connection', socket => {
 
   socket.on('portfolio', ({ id, name, email }) => {
     console.log('portfolio joined');
-    fetchLatestStockPricesForUser(socket, name);
+    fetchLatestStockPricesForUser(socket, id);
   });
 
   socket.on('disconnect', function () {

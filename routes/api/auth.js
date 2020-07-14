@@ -7,6 +7,7 @@ import auth from '../../middleware/auth.js';
 // User Model
 import User from '../../models/User.js';
 
+
 const { JWT_SECRET } = config;
 const router = Router();
 
@@ -114,14 +115,5 @@ router.get('/user', auth, async (req, res) => {
   }
 });
 
-
-router.get('/add-stock-to-portfolio', auth, async (req, res) => {
-  try {
-    var id = req.query.id;
-    res.status(200);
-  } catch (e) {
-    res.status(400).json({ msg: e.message });
-  }
-});
 
 export default router;

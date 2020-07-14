@@ -1,39 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../layouts/Navbar";
 import EnhancedTable from "../layouts/EnhancedTable";
-
+import axios from 'axios';
 import socketIOClient from "socket.io-client";
 
 // const ENDPOINT = "http://34.87.159.131:9999/";   
 
-function Home(props)  {
+function ManagePortfolio(props)  {
     const [rows, setRows] = useState();
+    const [allStocks, setAllStocks] = useState();
+
 
     const {token, user} = JSON.parse(localStorage.getItem("tokens"))
     // console.log(token, user);
 
-    
-    useEffect(() => {
-        const socket = socketIOClient();
-        // send information
-        socket.emit('all-stocks',  user);
-        socket.on("message", data => {
-            // console.log(data);
-            const { date, stocks } = data;
-            var newRows = []
-            for (var i = 0; i < stocks.length; i++) {
-                // console.log(stocks[i])
-                newRows.push(stocks[i]);
+    function getAllStocks() {
+        axios.get("/api/stock").then(result => {
+            console.log(result)
+            if (result.status === 200) {
+                setAllStocks(result.data)
+            } else {
+                setAllStocks(null);
             }
-            console.log(newRows.length);
-            setRows(newRows);
+        }).catch(e => {
+            setAllStocks(null);
         });
-
-        return () => {
-            socket.disconnect();
-         }
-      }, []);
-
+    }
 
     const headCells = [
         { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
@@ -53,11 +45,12 @@ function Home(props)  {
               sortOrder={'desc'}
               />
               :
-            <div className="auth-wrapper">
-                <div className="auth-inner">
-                    <h3>Loading Stock Prices ... </h3>
-                </div>
+              <div className="auth-wrapper">
+              <div className="auth-inner">
+                  <h3>Loading Your Stocks ...</h3>
+              </div>
             </div>
+              
               }
             </div>
         </div>
@@ -66,4 +59,4 @@ function Home(props)  {
 }
 
 
-export default Home;
+export default ManagePortfolio;
