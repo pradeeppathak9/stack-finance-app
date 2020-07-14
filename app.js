@@ -16,6 +16,7 @@ import { Stock } from './models/Stock.js';
 import User from './models/User.js';
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
+const __dirname = path.resolve();
 
 const app = express();
 // CORS Middleware
@@ -42,11 +43,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/stock', stockRoutes);
 
 // ADD THIS LINE
-app.use(express.static( "./react-app/build"));
+app.use("/", express.static( path.join(__dirname, "./react-app/build")));
 
 // If no API routes are hit, send the React app
 app.use(function(req, res) {
-  res.sendFile("./react-app/build/index.html");
+  res.sendFile(path.join(__dirname, "./react-app/build/index.html"));
 });
 
 
