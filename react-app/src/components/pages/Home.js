@@ -54,7 +54,7 @@ function Home(props)  {
               />
               :
             <div className="auth-wrapper">
-                <div className="auth-inner">
+                <div className="loading">
                     <h3>Loading Stock Prices ... </h3>
                 </div>
             </div>

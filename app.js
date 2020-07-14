@@ -62,7 +62,7 @@ async function fetchLatestStockPricesForUser(socket, user_id) {
       ids.push(mongoose.Types.ObjectId(user.portfolio[i]))
     }
     Stock.find({'_id': { $in: ids}}, function(err, items){
-      console.log(items);
+      // console.log(items);
       socket.emit('message', { date, stocks: items, name: user_id });
     });
 }
@@ -72,9 +72,13 @@ io.on('connection', socket => {
   console.log('connected', socket.id)
 
   socket.on('all-stocks', ({ id, name, email }) => {
-    console.log(socket.rooms);
+    // console.log(socket.rooms);
     console.log('all-stocks joined');
     socket.join('all-stocks');
+    Stock.find({}).exec(function(err, items){
+      let date = new Date()
+      socket.emit( "message", { date, stocks: items });
+    });
   });
 
   socket.on('portfolio', ({ id, name, email }) => {

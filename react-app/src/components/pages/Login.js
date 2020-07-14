@@ -15,7 +15,7 @@ function Login(props) {
     if (JSON.parse(localStorage.getItem("tokens"))) {
         return <Redirect to={'/'} />;
     }
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
 
     function postLogin() {
         console.log(email, password);

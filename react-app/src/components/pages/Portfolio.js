@@ -76,7 +76,7 @@ function Home(props)  {
               />
               :
               <div className="auth-wrapper">
-              <div className="auth-inner">
+              <div className="loading">
                   <h3>Loading Portfolio Prices ...</h3>
               </div>
             </div>
