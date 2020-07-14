@@ -1,3 +1,3 @@
 #### Stack Finance App
 
-URL - https://stock-finance-app.herokuapp.com/
+https://stock-finance-app.herokuapp.com/
