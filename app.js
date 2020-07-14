@@ -43,7 +43,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/stock', stockRoutes);
 
 // ADD THIS LINE
-app.use("/", express.static( path.join(__dirname, "./react-app/build")));
+app.use(express.static(path.join(__dirname, "./react-app/build")));
 
 // If no API routes are hit, send the React app
 app.use(function(req, res) {
