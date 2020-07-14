@@ -136,7 +136,7 @@ function ManagePortfolio(props)  {
             :    
             <div className="auth-wrapper">
               <div className="loading">
-                  <h3>Loading Portfolio ...</h3>
+                  <h3>Loading Stocks ...</h3>
               </div>
             </div>
             }

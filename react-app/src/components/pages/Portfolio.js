@@ -8,24 +8,9 @@ import socketIOClient from "socket.io-client";
 
 function Home(props)  {
     const [rows, setRows] = useState();
-    const [allStocks, setAllStocks] = useState();
-
 
     const {token, user} = JSON.parse(localStorage.getItem("tokens"))
     // console.log(token, user);
-
-    function getAllStocks() {
-        axios.get("/api/stock").then(result => {
-            console.log(result)
-            if (result.status === 200) {
-                setAllStocks(result.data)
-            } else {
-                setAllStocks(null);
-            }
-        }).catch(e => {
-            setAllStocks(null);
-        });
-    }
 
     useEffect(() => {
         const socket = socketIOClient();
@@ -68,18 +53,26 @@ function Home(props)  {
             <Navbar/>
           <div container className="stock-prices">
               {rows ?
-              <EnhancedTable
-              rows={rows}
-              headCells={headCells}
-              sortKey={'name'}
-              sortOrder={'desc'}
-              />
+                rows.length > 0 ?
+                    <EnhancedTable
+                    rows={rows}
+                    headCells={headCells}
+                    sortKey={'name'}
+                    sortOrder={'desc'}
+                    />
+                :
+                    <div className="auth-wrapper">
+                        <div className="loading">
+                            <h3>No Stocks in Portfolio!</h3>
+                            <h3> Go to Manage Portfolio for adding Stocks to Portfolio</h3>
+                        </div>
+                    </div>
               :
-              <div className="auth-wrapper">
-              <div className="loading">
-                  <h3>Loading Portfolio Prices ...</h3>
-              </div>
-            </div>
+                <div className="auth-wrapper">
+                    <div className="loading">
+                        <h3>Loading Portfolio Prices ...</h3>
+                    </div>
+                </div>
               }
             </div>
         </div>
